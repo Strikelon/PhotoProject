@@ -2,12 +2,18 @@ package com.strikalov.photoproject.presenter;
 
 import android.util.Log;
 
+import com.arellomobile.mvp.InjectViewState;
+import com.arellomobile.mvp.MvpPresenter;
 import com.strikalov.photoproject.model.ImageModel;
 import com.strikalov.photoproject.view.IViewHolder;
+import com.strikalov.photoproject.view.MainView;
 
 import java.util.List;
 
-public class MainPresenter {
+@InjectViewState
+public class MainPresenter extends MvpPresenter<MainView> {
+
+    private static final String TAG = "MainPresenter";
 
     private class RecyclerMainPresenter implements IRecyclerMainPresenter{
 
@@ -32,8 +38,9 @@ public class MainPresenter {
         }
 
         @Override
-        public void onRecyclerItemClick() {
-            Log.i("MainPresenter", Integer.toString(imageModel.incClickCount()));
+        public void onRecyclerItemClick(int position) {
+            Log.i(TAG, "Position: " + position);
+            getViewState().startDetailActivity(position);
         }
     }
 

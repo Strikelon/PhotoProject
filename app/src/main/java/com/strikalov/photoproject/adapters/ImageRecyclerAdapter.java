@@ -30,7 +30,7 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdap
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    iRecyclerMainPresenter.onRecyclerItemClick();
+                    iRecyclerMainPresenter.onRecyclerItemClick(position);
                 }
             });
         }
