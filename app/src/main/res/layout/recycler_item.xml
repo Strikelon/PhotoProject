@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_margin="@dimen/card_view_layout_margin"
     app:cardCornerRadius="@dimen/card_corner_radius"
     app:cardElevation="@dimen/card_elevation">
@@ -13,7 +13,7 @@
         android:id="@+id/image_view"
         android:layout_width="@dimen/card_image_width"
         android:layout_height="@dimen/card_image_height"
-        android:layout_margin="@dimen/card_image_layout_margin"
+        android:padding="@dimen/card_image_layout_padding"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
         tools:src="@drawable/m2"/>
