@@ -1,6 +1,6 @@
 package com.strikalov.photoproject.view;
 
 public interface IViewHolder {
-    void setImage(Boolean booleanValue);
+    void setImage(String url);
     int getPos();
 }

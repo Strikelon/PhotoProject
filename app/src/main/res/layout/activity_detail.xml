@@ -8,12 +8,14 @@
     android:layout_margin="16dp"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context=".activities.DetailActivity">
+    tools:context=".view.activities.DetailActivity">
 
     <ImageView
-        android:layout_width="176dp"
-        android:layout_height="100dp"
+        android:id="@+id/detail_image"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_margin="16dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/m2"/>
+        tools:src="@drawable/m2"/>
 
 </LinearLayout>
