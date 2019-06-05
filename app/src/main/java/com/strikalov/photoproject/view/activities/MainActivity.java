@@ -48,8 +48,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     }
 
     @Override
-    public void startDetailActivity(String photoUrl) {
-        Intent intent = DetailActivity.newIntent(this, photoUrl);
+    public void startDetailActivity(int position) {
+        Intent intent = DetailActivity.newIntent(this, position);
         startActivity(intent);
     }
 }
