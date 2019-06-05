@@ -11,8 +11,11 @@ public class DetailPresenter extends MvpPresenter<DetailView> {
 
     private static final String TAG = "DetailPresenter";
 
-    public void onGetPosition(int position){
-        Log.i(TAG, "Image position = " + position);
+    public void onGetPhotoUrl(String photoUrl){
+        if(photoUrl != null) {
+            Log.i(TAG, "PhotoUrl = " + photoUrl);
+            getViewState().downloadImage(photoUrl);
+        }
     }
 
 }

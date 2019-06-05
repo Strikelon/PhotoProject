@@ -1,4 +1,4 @@
-package com.strikalov.photoproject.adapters;
+package com.strikalov.photoproject.view.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,9 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
 import com.strikalov.photoproject.R;
 import com.strikalov.photoproject.presenter.IRecyclerMainPresenter;
 import com.strikalov.photoproject.view.IViewHolder;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdapter.ImageHolder> {
 
@@ -21,25 +25,22 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdap
 
     class ImageHolder extends RecyclerView.ViewHolder implements IViewHolder {
 
-        private ImageView imageView;
+        @BindView(R.id.image_view)
+        ImageView imageView;
+
         private int position;
 
         public ImageHolder(View view){
             super(view);
-            imageView = view.findViewById(R.id.image_view);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    iRecyclerMainPresenter.onRecyclerItemClick(position);
-                }
-            });
+            ButterKnife.bind(this, view);
+            view.setOnClickListener(v -> iRecyclerMainPresenter.onRecyclerItemClick(position));
         }
 
         @Override
-        public void setImage(Boolean booleanValue) {
-            if(booleanValue){
-                imageView.setImageResource(R.drawable.m2);
-            }
+        public void setImage(String url) {
+            Picasso.get()
+                    .load(url)
+                    .into(imageView);
         }
 
         @Override
