@@ -14,6 +14,8 @@ import com.strikalov.photoproject.view.MainView;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
@@ -28,9 +30,10 @@ public class MainPresenter extends MvpPresenter<MainView> {
     private Disposable disposable;
     private Disposable databaseDisposable;
 
-    public MainPresenter(){
+    @Inject
+    public MainPresenter(Model model){
         recyclerMainPresenter = new RecyclerMainPresenter();
-        model = App.getInstance().getModel();
+        this.model = model;
         photos = new ArrayList<>();
     }
 

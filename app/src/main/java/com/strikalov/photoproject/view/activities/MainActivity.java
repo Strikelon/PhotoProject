@@ -7,18 +7,32 @@ import android.support.v7.widget.RecyclerView;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
+import com.strikalov.photoproject.App;
 import com.strikalov.photoproject.R;
 import com.strikalov.photoproject.view.adapters.ImageRecyclerAdapter;
 import com.strikalov.photoproject.presenter.MainPresenter;
 import com.strikalov.photoproject.view.MainView;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends MvpAppCompatActivity implements MainView {
 
+    @Inject
     @InjectPresenter
     public MainPresenter mainPresenter;
+
+    @ProvidePresenter
+    public MainPresenter provideMainPresente(){
+        return mainPresenter;
+    }
+
+    {
+        App.getInstance().getAppComponent().injectMainActivity(this);
+    }
 
     private ImageRecyclerAdapter adapter;
 
