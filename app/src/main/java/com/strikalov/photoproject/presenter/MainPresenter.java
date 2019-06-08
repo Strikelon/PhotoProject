@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.strikalov.photoproject.App;
+import com.strikalov.photoproject.model.Model;
 import com.strikalov.photoproject.model.entity.Photo;
 import com.strikalov.photoproject.model.network.PixabayApi;
 import com.strikalov.photoproject.view.IViewHolder;
@@ -21,13 +23,14 @@ public class MainPresenter extends MvpPresenter<MainView> {
     private static final String TAG = "MainPresenter";
 
     private RecyclerMainPresenter recyclerMainPresenter;
-    private PixabayApi pixabayApi;
+    private Model model;
     private List<Photo> photos;
     private Disposable disposable;
+    private Disposable databaseDisposable;
 
     public MainPresenter(){
         recyclerMainPresenter = new RecyclerMainPresenter();
-        pixabayApi = new PixabayApi();
+        model = App.getInstance().getModel();
         photos = new ArrayList<>();
     }
 
@@ -36,12 +39,21 @@ public class MainPresenter extends MvpPresenter<MainView> {
         downloadPhotoList();
     }
 
+    private void savePhotoListInDatabase(List<Photo> photosList){
+        databaseDisposable = model.insertPhotoListInDatabase(photosList).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        () -> Log.i(TAG, "Photos saved in Database"),
+                        throwable -> Log.i(TAG, throwable.toString())
+                );
+    }
+
     private void downloadPhotoList(){
-        disposable = pixabayApi.loadPhotoList().observeOn(AndroidSchedulers.mainThread())
+        disposable = model.loadPhotoListFromServer().observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         photoList -> {
                             photos = photoList.getPhotoList();
                             getViewState().updateRecyclerView();
+                            savePhotoListInDatabase(photos);
                             },
                         throwable -> Log.i(TAG, throwable.toString())
                 );
@@ -50,8 +62,12 @@ public class MainPresenter extends MvpPresenter<MainView> {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.i(TAG, "onDestroy()");
         if(disposable != null){
             disposable.dispose();
+        }
+        if(databaseDisposable != null){
+            databaseDisposable.dispose();
         }
     }
 
@@ -77,7 +93,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
         @Override
         public void onRecyclerItemClick(int position) {
             Log.i(TAG, "Position: " + position);
-            getViewState().startDetailActivity(photos.get(position).getWebformatURL());
+            getViewState().startDetailActivity(position);
         }
     }
 }

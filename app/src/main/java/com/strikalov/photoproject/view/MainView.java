@@ -4,7 +4,7 @@ import com.arellomobile.mvp.MvpView;
 
 public interface MainView extends MvpView {
 
-    void startDetailActivity(String photoUrl);
+    void startDetailActivity(int position);
     void updateRecyclerView();
 
 }
