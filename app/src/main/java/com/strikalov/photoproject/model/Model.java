@@ -21,9 +21,9 @@ public class Model {
     private PixabayApi pixabayApi;
     private AppDatabase appDatabase;
 
-    public Model(){
-        pixabayApi = new PixabayApi();
-        this.appDatabase = App.getInstance().getAppDatabase();
+    public Model(PixabayApi pixabayApi, AppDatabase appDatabase){
+        this.pixabayApi = pixabayApi;
+        this.appDatabase = appDatabase;
     }
 
     public Observable<PhotoList> loadPhotoListFromServer(){

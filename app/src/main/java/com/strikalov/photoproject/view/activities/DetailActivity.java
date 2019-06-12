@@ -8,10 +8,14 @@ import android.widget.ImageView;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.squareup.picasso.Picasso;
+import com.strikalov.photoproject.App;
 import com.strikalov.photoproject.R;
 import com.strikalov.photoproject.presenter.DetailPresenter;
 import com.strikalov.photoproject.view.DetailView;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,8 +31,18 @@ public class DetailActivity extends MvpAppCompatActivity implements DetailView {
         return intent;
     }
 
+    @Inject
     @InjectPresenter
     public DetailPresenter detailPresenter;
+
+    @ProvidePresenter
+    public DetailPresenter provideDetailPresenter(){
+        return detailPresenter;
+    }
+
+    {
+        App.getInstance().getAppComponent().injectDetailActivity(this);
+    }
 
     @BindView(R.id.detail_image)
     ImageView detailImage;

@@ -8,6 +8,8 @@ import com.strikalov.photoproject.App;
 import com.strikalov.photoproject.model.Model;
 import com.strikalov.photoproject.view.DetailView;
 
+import javax.inject.Inject;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
@@ -19,8 +21,9 @@ public class DetailPresenter extends MvpPresenter<DetailView> {
     private Model model;
     private Disposable databaseDisposable;
 
-    public DetailPresenter(){
-        model = App.getInstance().getModel();
+    @Inject
+    public DetailPresenter(Model model){
+        this.model = model;
     }
 
     public void onGetPhotoId(int id){
