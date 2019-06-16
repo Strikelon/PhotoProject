@@ -42,7 +42,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
         downloadPhotoList();
     }
 
-    private void savePhotoListInDatabase(List<Photo> photosList){
+    public void savePhotoListInDatabase(List<Photo> photosList){
         databaseDisposable = model.insertPhotoListInDatabase(photosList).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         () -> Log.i(TAG, "Photos saved in Database"),
