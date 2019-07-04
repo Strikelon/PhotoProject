@@ -15,10 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
+@Singleton
 @InjectViewState
 public class MainPresenter extends MvpPresenter<MainView> {
 
@@ -58,7 +60,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
                             getViewState().updateRecyclerView();
                             savePhotoListInDatabase(photos);
                             },
-                        throwable -> Log.i(TAG, throwable.toString())
+                        throwable -> Log.i(TAG, "downloadPhotoList()" + throwable.toString())
                 );
     }
 

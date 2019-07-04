@@ -9,10 +9,12 @@ import com.strikalov.photoproject.model.Model;
 import com.strikalov.photoproject.view.DetailView;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
+@Singleton
 @InjectViewState
 public class DetailPresenter extends MvpPresenter<DetailView> {
 

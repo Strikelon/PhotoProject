@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1063808010418",
+    "firebase_url": "https://photoproject-cc0f7.firebaseio.com",
+    "project_id": "photoproject-cc0f7",
+    "storage_bucket": "photoproject-cc0f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063808010418:android:7cbf55118afb4661",
+        "android_client_info": {
+          "package_name": "com.strikalov.photoproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1063808010418-qqbkimkf9tfdsfeth0n2h1s2rpim6145.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.strikalov.photoproject",
+            "certificate_hash": "3e92eebb98c7823c416e2e371c6684c69593fa2c"
+          }
+        },
+        {
+          "client_id": "1063808010418-ofbv5sba42k2k30fmk010497a3hbhs4s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7iBLJ1tpAsYf4b485RBQmn9NhyRpc_sQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1063808010418-ofbv5sba42k2k30fmk010497a3hbhs4s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
