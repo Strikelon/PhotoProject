@@ -8,7 +8,6 @@ import com.squareup.leakcanary.LeakCanary;
 import com.strikalov.photoproject.dagger.AppComponent;
 import com.strikalov.photoproject.dagger.AppModule;
 import com.strikalov.photoproject.dagger.DaggerAppComponent;
-import com.strikalov.photoproject.model.Model;
 import com.strikalov.photoproject.model.database.AppDatabase;
 
 import io.fabric.sdk.android.Fabric;

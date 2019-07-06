@@ -12,6 +12,7 @@ import dagger.Component;
 public interface AppComponent {
 
     void injectMainActivity(MainActivity mainActivity);
+
     void injectDetailActivity(DetailActivity detailActivity);
 
 }

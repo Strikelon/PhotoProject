@@ -11,7 +11,7 @@ public class PhotoRoomEntity {
 
     private String photoUrl;
 
-    public PhotoRoomEntity(long id, String photoUrl){
+    public PhotoRoomEntity(long id, String photoUrl) {
         this.id = id;
         this.photoUrl = photoUrl;
     }

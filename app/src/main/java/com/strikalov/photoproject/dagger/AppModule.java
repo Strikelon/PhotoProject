@@ -14,25 +14,25 @@ public class AppModule {
 
     private AppDatabase appDatabase;
 
-    public AppModule(AppDatabase appDatabase){
+    public AppModule(AppDatabase appDatabase) {
         this.appDatabase = appDatabase;
     }
 
     @Provides
     @Singleton
-    public AppDatabase provideAppDatabase(){
+    public AppDatabase provideAppDatabase() {
         return appDatabase;
     }
 
     @Provides
     @Singleton
-    public PixabayApi providePixabayApi(){
+    public PixabayApi providePixabayApi() {
         return new PixabayApi();
     }
 
     @Provides
     @Singleton
-    public Model provideModel(PixabayApi pixabayApi, AppDatabase appDatabase){
+    public Model provideModel(PixabayApi pixabayApi, AppDatabase appDatabase) {
         return new Model(pixabayApi, appDatabase);
     }
 

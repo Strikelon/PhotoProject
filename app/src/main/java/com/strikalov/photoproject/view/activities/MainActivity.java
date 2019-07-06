@@ -10,9 +10,9 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.strikalov.photoproject.App;
 import com.strikalov.photoproject.R;
-import com.strikalov.photoproject.view.adapters.ImageRecyclerAdapter;
 import com.strikalov.photoproject.presenter.MainPresenter;
 import com.strikalov.photoproject.view.MainView;
+import com.strikalov.photoproject.view.adapters.ImageRecyclerAdapter;
 
 import javax.inject.Inject;
 
@@ -24,20 +24,18 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     @Inject
     @InjectPresenter
     public MainPresenter mainPresenter;
-
-    @ProvidePresenter
-    public MainPresenter provideMainPresente(){
-        return mainPresenter;
-    }
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+    private ImageRecyclerAdapter adapter;
 
     {
         App.getInstance().getAppComponent().injectMainActivity(this);
     }
 
-    private ImageRecyclerAdapter adapter;
-
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
+    @ProvidePresenter
+    public MainPresenter provideMainPresente() {
+        return mainPresenter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +46,15 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         initRecycler();
     }
 
-    private void initRecycler(){
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+    private void initRecycler() {
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         adapter = new ImageRecyclerAdapter(mainPresenter.getRecyclerMainPresenter());
         recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void updateRecyclerView() {
-        if(adapter != null){
+        if (adapter != null) {
             adapter.notifyDataSetChanged();
         }
     }

@@ -4,10 +4,8 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.strikalov.photoproject.App;
 import com.strikalov.photoproject.model.Model;
 import com.strikalov.photoproject.model.entity.Photo;
-import com.strikalov.photoproject.model.network.PixabayApi;
 import com.strikalov.photoproject.view.IViewHolder;
 import com.strikalov.photoproject.view.MainView;
 
@@ -33,7 +31,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
     private Disposable databaseDisposable;
 
     @Inject
-    public MainPresenter(Model model){
+    public MainPresenter(Model model) {
         recyclerMainPresenter = new RecyclerMainPresenter();
         this.model = model;
         photos = new ArrayList<>();
@@ -44,7 +42,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
         downloadPhotoList();
     }
 
-    public void savePhotoListInDatabase(List<Photo> photosList){
+    public void savePhotoListInDatabase(List<Photo> photosList) {
         databaseDisposable = model.insertPhotoListInDatabase(photosList).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         () -> Log.i(TAG, "Photos saved in Database"),
@@ -52,14 +50,14 @@ public class MainPresenter extends MvpPresenter<MainView> {
                 );
     }
 
-    private void downloadPhotoList(){
+    private void downloadPhotoList() {
         disposable = model.loadPhotoListFromServer().observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         photoList -> {
                             photos = photoList.getPhotoList();
                             getViewState().updateRecyclerView();
                             savePhotoListInDatabase(photos);
-                            },
+                        },
                         throwable -> Log.i(TAG, "downloadPhotoList()" + throwable.toString())
                 );
     }
@@ -68,10 +66,10 @@ public class MainPresenter extends MvpPresenter<MainView> {
     public void onDestroy() {
         super.onDestroy();
         Log.i(TAG, "onDestroy()");
-        if(disposable != null){
+        if (disposable != null) {
             disposable.dispose();
         }
-        if(databaseDisposable != null){
+        if (databaseDisposable != null) {
             databaseDisposable.dispose();
         }
     }
@@ -80,7 +78,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
         return recyclerMainPresenter;
     }
 
-    private class RecyclerMainPresenter implements IRecyclerMainPresenter{
+    private class RecyclerMainPresenter implements IRecyclerMainPresenter {
 
 
         @Override

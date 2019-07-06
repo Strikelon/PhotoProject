@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.strikalov.photoproject.App;
 import com.strikalov.photoproject.model.Model;
 import com.strikalov.photoproject.view.DetailView;
 
@@ -24,15 +23,15 @@ public class DetailPresenter extends MvpPresenter<DetailView> {
     private Disposable databaseDisposable;
 
     @Inject
-    public DetailPresenter(Model model){
+    public DetailPresenter(Model model) {
         this.model = model;
     }
 
-    public void onGetPhotoId(int id){
+    public void onGetPhotoId(int id) {
         databaseDisposable = model.getPhotoByIdFromDatabase(id).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         photoRoomEntity -> {
-                            if(photoRoomEntity != null){
+                            if (photoRoomEntity != null) {
                                 getViewState().downloadImage(photoRoomEntity.getPhotoUrl());
                             }
                         },
@@ -43,7 +42,7 @@ public class DetailPresenter extends MvpPresenter<DetailView> {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(databaseDisposable != null){
+        if (databaseDisposable != null) {
             databaseDisposable.dispose();
         }
     }
