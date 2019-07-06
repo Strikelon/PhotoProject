@@ -24,28 +24,26 @@ public class DetailActivity extends MvpAppCompatActivity implements DetailView {
 
     private static final String DETAIL_ACTIVITY_ARG = "DetailActivityArg";
     private static final String TAG = "DetailActivityLog";
-
-    public static Intent newIntent(Context context, int position){
-        Intent intent = new Intent(context, DetailActivity.class);
-        intent.putExtra(DETAIL_ACTIVITY_ARG, position);
-        return intent;
-    }
-
     @Inject
     @InjectPresenter
     public DetailPresenter detailPresenter;
-
-    @ProvidePresenter
-    public DetailPresenter provideDetailPresenter(){
-        return detailPresenter;
-    }
+    @BindView(R.id.detail_image)
+    ImageView detailImage;
 
     {
         App.getInstance().getAppComponent().injectDetailActivity(this);
     }
 
-    @BindView(R.id.detail_image)
-    ImageView detailImage;
+    public static Intent newIntent(Context context, int position) {
+        Intent intent = new Intent(context, DetailActivity.class);
+        intent.putExtra(DETAIL_ACTIVITY_ARG, position);
+        return intent;
+    }
+
+    @ProvidePresenter
+    public DetailPresenter provideDetailPresenter() {
+        return detailPresenter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +51,7 @@ public class DetailActivity extends MvpAppCompatActivity implements DetailView {
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
 
-        if(getIntent() != null){
+        if (getIntent() != null) {
             int position = getIntent().getIntExtra(DETAIL_ACTIVITY_ARG, 0);
             Log.i(TAG, "Photo id = " + position);
             detailPresenter.onGetPhotoId(position);

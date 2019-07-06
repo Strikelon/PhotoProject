@@ -15,7 +15,7 @@ public class PixabayApi {
 
     private PixabayApiService pixabayApiService;
 
-    public PixabayApi(){
+    public PixabayApi() {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
@@ -27,7 +27,7 @@ public class PixabayApi {
 
     }
 
-    public Observable<PhotoList> loadPhotoList(){
+    public Observable<PhotoList> loadPhotoList() {
 
         return pixabayApiService.loadPhotoList(API_KEY).subscribeOn(Schedulers.io());
 

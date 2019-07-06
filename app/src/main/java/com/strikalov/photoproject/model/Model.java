@@ -1,8 +1,6 @@
 package com.strikalov.photoproject.model;
 
-import com.strikalov.photoproject.App;
 import com.strikalov.photoproject.model.database.AppDatabase;
-import com.strikalov.photoproject.model.database.PhotoRoomDao;
 import com.strikalov.photoproject.model.database.PhotoRoomEntity;
 import com.strikalov.photoproject.model.entity.Photo;
 import com.strikalov.photoproject.model.entity.PhotoList;
@@ -21,16 +19,16 @@ public class Model {
     private PixabayApi pixabayApi;
     private AppDatabase appDatabase;
 
-    public Model(PixabayApi pixabayApi, AppDatabase appDatabase){
+    public Model(PixabayApi pixabayApi, AppDatabase appDatabase) {
         this.pixabayApi = pixabayApi;
         this.appDatabase = appDatabase;
     }
 
-    public Observable<PhotoList> loadPhotoListFromServer(){
+    public Observable<PhotoList> loadPhotoListFromServer() {
         return pixabayApi.loadPhotoList();
     }
 
-    public Completable insertPhotoInDatabase(int id, String photoUrl){
+    public Completable insertPhotoInDatabase(int id, String photoUrl) {
 
         PhotoRoomEntity photoRoomEntity = new PhotoRoomEntity(id, photoUrl);
 
@@ -40,34 +38,34 @@ public class Model {
 
     }
 
-    public Completable insertPhotoListInDatabase(List<Photo> photoList){
+    public Completable insertPhotoListInDatabase(List<Photo> photoList) {
 
-        List<PhotoRoomEntity>  photoRoomEntityList = createPhotoRoomEntityList(photoList);
+        List<PhotoRoomEntity> photoRoomEntityList = createPhotoRoomEntityList(photoList);
 
         return Completable.fromCallable(
                 () -> appDatabase.photoRoomDao().insertPhotoList(photoRoomEntityList)
         ).subscribeOn(Schedulers.io());
     }
 
-    private List<PhotoRoomEntity> createPhotoRoomEntityList(List<Photo> photoList){
+    private List<PhotoRoomEntity> createPhotoRoomEntityList(List<Photo> photoList) {
 
-        List<PhotoRoomEntity>  photoRoomEntityList = new ArrayList<>();
+        List<PhotoRoomEntity> photoRoomEntityList = new ArrayList<>();
 
-        for(int i=0; i<photoList.size(); i++){
+        for (int i = 0; i < photoList.size(); i++) {
             photoRoomEntityList.add(new PhotoRoomEntity(i, photoList.get(i).getWebformatURL()));
         }
 
         return photoRoomEntityList;
     }
 
-    public Maybe<List<PhotoRoomEntity>> getAllPhotosFromDatabase(){
+    public Maybe<List<PhotoRoomEntity>> getAllPhotosFromDatabase() {
 
         return appDatabase.photoRoomDao().getAllPhotos()
                 .subscribeOn(Schedulers.io());
 
     }
 
-    public Maybe<PhotoRoomEntity> getPhotoByIdFromDatabase(long photoId){
+    public Maybe<PhotoRoomEntity> getPhotoByIdFromDatabase(long photoId) {
 
         return appDatabase.photoRoomDao().getPhotoById(photoId)
                 .subscribeOn(Schedulers.io());

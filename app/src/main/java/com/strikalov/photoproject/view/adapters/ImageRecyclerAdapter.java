@@ -19,35 +19,8 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdap
 
     private IRecyclerMainPresenter iRecyclerMainPresenter;
 
-    public ImageRecyclerAdapter(IRecyclerMainPresenter iRecyclerMainPresenter){
+    public ImageRecyclerAdapter(IRecyclerMainPresenter iRecyclerMainPresenter) {
         this.iRecyclerMainPresenter = iRecyclerMainPresenter;
-    }
-
-    class ImageHolder extends RecyclerView.ViewHolder implements IViewHolder {
-
-        @BindView(R.id.image_view)
-        ImageView imageView;
-
-        private int position;
-
-        public ImageHolder(View view){
-            super(view);
-            ButterKnife.bind(this, view);
-            view.setOnClickListener(v -> iRecyclerMainPresenter.onRecyclerItemClick(position));
-        }
-
-        @Override
-        public void setImage(String url) {
-            Picasso.get()
-                    .load(url)
-                    .into(imageView);
-        }
-
-        @Override
-        public int getPos() {
-            return position;
-        }
-
     }
 
     @NonNull
@@ -66,5 +39,32 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdap
     @Override
     public int getItemCount() {
         return iRecyclerMainPresenter.getItemCount();
+    }
+
+    class ImageHolder extends RecyclerView.ViewHolder implements IViewHolder {
+
+        @BindView(R.id.image_view)
+        ImageView imageView;
+
+        private int position;
+
+        public ImageHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+            view.setOnClickListener(v -> iRecyclerMainPresenter.onRecyclerItemClick(position));
+        }
+
+        @Override
+        public void setImage(String url) {
+            Picasso.get()
+                    .load(url)
+                    .into(imageView);
+        }
+
+        @Override
+        public int getPos() {
+            return position;
+        }
+
     }
 }
